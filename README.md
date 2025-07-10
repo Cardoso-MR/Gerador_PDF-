@@ -36,12 +36,21 @@ O programa `ZCLAB_CONVERT_TABLE_PDF.ABAP` é uma classe ABAP que permite convert
 ### 📋 Exemplo Básico
 
 ```abap
-DATA: lo_pdf TYPE REF TO zclab_convert_table_pdf,
-      lv_pdf TYPE xstring.
+REPORT zteste_gerar_pdf.
 
-CREATE OBJECT lo_pdf.
-lo_pdf->add_table( it_data = lt_my_data ).
-lv_pdf = lo_pdf->generate( ).
+DATA: itl_makt TYPE makt_tab.
+
+DATA: wal_makt TYPE makt.
+
+wal_makt-mandt = sy-mandt.
+wal_makt-spras = sy-langu.
+wal_makt-maktx = 'Material de Teste'.
+wal_makt-matnr = sy-datum.
+APPEND wal_makt TO itl_makt.
+
+DATA(ol_gerar_pdf) = NEW zclab_convert_table_pdf( ).
+
+DATA(itl_pdf) = ol_gerar_pdf->m_gerar_pdf( EXPORTING i_table = itl_makt ).
 ```
 ---
 
